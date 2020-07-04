@@ -1,0 +1,66 @@
+.books_grid{
+  width: 80%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 3rem 1rem;
+  padding: 2rem 0;
+
+  .book_element{
+    @extend .center-v;
+    position: relative;
+    box-shadow: 2px 2px 30px lightgrey;
+    min-height: 380px;
+
+    &:hover{
+      transform: scale(1.02);
+    }
+  
+    .book_coverImg{
+      width: 100%;
+      height: 150px;
+      background-color: lightgrey;
+      overflow: hidden;
+
+      img{
+        width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+      }
+    }
+    .book_info{
+      padding: 1rem;
+    }
+
+    .book_title{
+      margin-bottom: .5rem;
+    }
+    .book_shortDescription{
+      font-size: .7rem;
+    }
+    .book_row{
+      @extend .center-h;
+      position: absolute;
+      bottom: 0;
+      height: fit-content;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      padding: .5rem 1rem;
+      background-color: lightgrey;
+      font-size: .8rem;
+    }
+    .book_goToBtn{
+      background-color: $primary;
+      padding: .3rem .5rem;
+      color: $white;
+      border-radius: .25rem;
+      white-space: nowrap;
+    }
+    .book_author{
+      line-height: 100%;
+      font-style: italic;
+      text-align: right;
+    }
+  }
+}

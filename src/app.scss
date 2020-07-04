@@ -1,0 +1,14 @@
+@import "./styles/config";
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: $ff-primary, sans-serif;
+  transition: .3s;
+}
+
+@import "./styles/components/navbar";
+@import "./styles/components/loader";
+@import "./styles/components/book_grid";
+@import "./styles/components/book_details";
