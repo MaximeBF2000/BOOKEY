@@ -1,5 +1,5 @@
 import 'regenerator-runtime/runtime'
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import ReactDOM from "react-dom"
 import "./app.scss"
 import { GeneralContext, GeneralProvider } from "./context/Context"
@@ -20,9 +20,6 @@ const Provider = () => (
 export default function App() {
   const { isLoading, data, query, toggleLogin, fetchBooks } = useContext(GeneralContext)
 
-  useEffect(() => {
-    fetchBooks()
-  }, [])
 
   return (
     <>

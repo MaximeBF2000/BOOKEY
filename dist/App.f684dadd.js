@@ -29094,7 +29094,7 @@ module.hot.accept(reloadCSS);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.default = exports.ACTIONS = void 0;
 
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
@@ -29102,22 +29102,29 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+var ACTIONS = {
+  TOGGLE_LOADING: "TOGGLE_LOADING",
+  GET_BOOKS: "GET_BOOKS",
+  UPDATE_QUERY: "UPDATE_QUERY"
+};
+exports.ACTIONS = ACTIONS;
+
 var _default = function _default(state, action) {
   var type = action.type,
       payload = action.payload;
 
   switch (type) {
-    case "TOGGLE_LOADING":
+    case ACTIONS.TOGGLE_LOADING:
       return _objectSpread({}, state, {
         isLoading: !state.isLoading
       });
 
-    case "GET_BOOKS":
+    case ACTIONS.GET_BOOKS:
       return _objectSpread({}, state, {
         data: payload
       });
 
-    case "UPDATE_QUERY":
+    case ACTIONS.UPDATE_QUERY:
       return _objectSpread({}, state, {
         query: payload
       });
@@ -30891,7 +30898,11 @@ module.exports.default = axios;
 
 },{"./utils":"node_modules/axios/lib/utils.js","./helpers/bind":"node_modules/axios/lib/helpers/bind.js","./core/Axios":"node_modules/axios/lib/core/Axios.js","./core/mergeConfig":"node_modules/axios/lib/core/mergeConfig.js","./defaults":"node_modules/axios/lib/defaults.js","./cancel/Cancel":"node_modules/axios/lib/cancel/Cancel.js","./cancel/CancelToken":"node_modules/axios/lib/cancel/CancelToken.js","./cancel/isCancel":"node_modules/axios/lib/cancel/isCancel.js","./helpers/spread":"node_modules/axios/lib/helpers/spread.js"}],"node_modules/axios/index.js":[function(require,module,exports) {
 module.exports = require('./lib/axios');
-},{"./lib/axios":"node_modules/axios/lib/axios.js"}],"src/context/Context.js":[function(require,module,exports) {
+},{"./lib/axios":"node_modules/axios/lib/axios.js"}],"src/config.json":[function(require,module,exports) {
+module.exports = {
+  "GOOGLE_BOOK_API_URI": "https://www.googleapis.com/books/v1/volumes?q="
+};
+},{}],"src/context/Context.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -30901,9 +30912,11 @@ exports.GeneralProvider = exports.GeneralContext = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
-var _Reducer = _interopRequireDefault(require("./Reducer"));
+var _Reducer = _interopRequireWildcard(require("./Reducer"));
 
 var _axios = _interopRequireDefault(require("axios"));
+
+var _config = require("../config.json");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30930,7 +30943,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 var initialState = {
   data: [],
   query: "",
-  isLoading: true
+  isLoading: false
 };
 var GeneralContext = (0, _react.createContext)(initialState);
 exports.GeneralContext = GeneralContext;
@@ -30941,11 +30954,11 @@ var GeneralProvider = function GeneralProvider(props) {
       state = _useReducer2[0],
       dispatch = _useReducer2[1];
 
-  var API_URI = "https://www.googleapis.com/books/v1/volumes?q=".concat(state.query); // ACTIONS
+  var API_URI = _config.GOOGLE_BOOK_API_URI + state.query; // ACTIONS
 
   var toggleLogin = function toggleLogin() {
     return dispatch({
-      type: "TOGGLE_LOADING"
+      type: _Reducer.ACTIONS.TOGGLE_LOADING
     });
   };
 
@@ -30957,42 +30970,36 @@ var GeneralProvider = function GeneralProvider(props) {
           switch (_context.prev = _context.next) {
             case 0:
               if (!state.query) {
-                _context.next = 14;
+                _context.next = 13;
                 break;
               }
 
               _context.prev = 1;
-              _context.next = 4;
+              toggleLogin();
+              _context.next = 5;
               return _axios.default.get(API_URI);
 
-            case 4:
+            case 5:
               res = _context.sent;
               dispatch({
-                type: "GET_BOOKS",
+                type: _Reducer.ACTIONS.GET_BOOKS,
                 payload: res.data.items
               });
               toggleLogin();
-              _context.next = 12;
+              _context.next = 13;
               break;
 
-            case 9:
-              _context.prev = 9;
+            case 10:
+              _context.prev = 10;
               _context.t0 = _context["catch"](1);
               console.error(_context.t0);
 
-            case 12:
-              _context.next = 15;
-              break;
-
-            case 14:
-              toggleLogin();
-
-            case 15:
+            case 13:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[1, 9]]);
+      }, _callee, null, [[1, 10]]);
     }));
 
     return function fetchBooks() {
@@ -31002,7 +31009,7 @@ var GeneralProvider = function GeneralProvider(props) {
 
   var updateQuery = function updateQuery(newValue) {
     return dispatch({
-      type: "UPDATE_QUERY",
+      type: _Reducer.ACTIONS.UPDATE_QUERY,
       payload: newValue
     });
   };
@@ -31020,7 +31027,7 @@ var GeneralProvider = function GeneralProvider(props) {
 };
 
 exports.GeneralProvider = GeneralProvider;
-},{"react":"node_modules/react/index.js","./Reducer":"src/context/Reducer.js","axios":"node_modules/axios/index.js"}],"node_modules/react-icons/lib/esm/iconsManifest.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./Reducer":"src/context/Reducer.js","axios":"node_modules/axios/index.js","../config.json":"src/config.json"}],"node_modules/react-icons/lib/esm/iconsManifest.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -48044,9 +48051,6 @@ function App() {
       toggleLogin = _useContext.toggleLogin,
       fetchBooks = _useContext.fetchBooks;
 
-  (0, _react.useEffect)(function () {
-    fetchBooks();
-  }, []);
   return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_Navbar.default, null), isLoading && /*#__PURE__*/_react.default.createElement(_Loading.default, null), data.length === 0 && !isLoading ? /*#__PURE__*/_react.default.createElement("p", {
     className: "notfound"
   }, "No books found...") : /*#__PURE__*/_react.default.createElement(_BooksGrid.default, null));
@@ -48081,7 +48085,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54779" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50628" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
