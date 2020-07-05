@@ -28,7 +28,7 @@ export const GeneralProvider = props => {
       try{
         toggleLogin()
         const res = await axios.get(API_URI)
-        dispatch({type: ACTIONS.GET_BOOKS, payload: res.data.items})
+        dispatch({ type: ACTIONS.GET_BOOKS, payload: res.data.items || [] })
         toggleLogin()
       } catch(err){
         console.error(err)

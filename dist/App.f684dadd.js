@@ -29105,7 +29105,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var ACTIONS = {
   TOGGLE_LOADING: "TOGGLE_LOADING",
   GET_BOOKS: "GET_BOOKS",
-  UPDATE_QUERY: "UPDATE_QUERY"
+  UPDATE_QUERY: "UPDATE_QUERY",
+  RETURN_STATE: "RETURN_STATE"
 };
 exports.ACTIONS = ACTIONS;
 
@@ -29128,6 +29129,9 @@ var _default = function _default(state, action) {
       return _objectSpread({}, state, {
         query: payload
       });
+
+    case ACTIONS.RETURN_STATE:
+      return state;
 
     default:
       return state;
@@ -30983,7 +30987,7 @@ var GeneralProvider = function GeneralProvider(props) {
               res = _context.sent;
               dispatch({
                 type: _Reducer.ACTIONS.GET_BOOKS,
-                payload: res.data.items
+                payload: res.data.items || []
               });
               toggleLogin();
               _context.next = 13;

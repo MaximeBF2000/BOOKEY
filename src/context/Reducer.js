@@ -1,7 +1,8 @@
 export const ACTIONS = {
   TOGGLE_LOADING: "TOGGLE_LOADING",
   GET_BOOKS: "GET_BOOKS",
-  UPDATE_QUERY: "UPDATE_QUERY"
+  UPDATE_QUERY: "UPDATE_QUERY",
+  RETURN_STATE: "RETURN_STATE"
 }
 
 export default (state, action) => {
@@ -13,6 +14,8 @@ export default (state, action) => {
       return { ...state, data: payload }
     case ACTIONS.UPDATE_QUERY:
       return { ...state, query: payload }
+    case ACTIONS.RETURN_STATE:
+      return state
     default:
       return state
   }
