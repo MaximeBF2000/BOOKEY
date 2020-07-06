@@ -153,7 +153,7 @@ header .search_container .search_icon {
   color: #fefefe;
   padding: 0.3rem 0.5rem;
   border-radius: 0.25rem;
-  top: 4rem;
+  top: 2rem;
   right: 2rem;
   transition: 0.3s;
 }
@@ -175,12 +175,13 @@ header .search_container .search_icon {
 .book_details .book_card .book_image img {
   width: 100%;
   max-height: 100%;
+  object-fit: contain;
 }
 .book_details .book_card .book_author, .book_details .book_card .book_creationDate, .book_details .book_card .book_lang, .book_details .book_card .book_categories {
   padding: 0.5rem 0;
 }
 .book_details .book_resume {
-  padding: 2rem 0;
+  padding: 3rem 0;
 }
 .book_details .book_resume .book_title {
   margin-bottom: 2rem;

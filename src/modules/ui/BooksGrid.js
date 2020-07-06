@@ -8,9 +8,15 @@ export default function BooksGrid() {
 
   return (
     <div className="books_grid">
-      {data.map(book => (
-        <Book book={book} key={Math.random()} />
-      ))}
+      {data.map(book => {
+        const { publishedDate, authors } = book.volumeInfo
+        if(
+          authors
+          && parseFloat(publishedDate) > 1850
+        ){
+          return <Book book={book} key={Math.random()} />
+        }
+      })}
     </div>
   )
 }

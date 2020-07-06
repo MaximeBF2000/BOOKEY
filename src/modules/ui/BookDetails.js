@@ -9,8 +9,6 @@ export default function BookDetails({ book, pickThumbnail, setShowDetails }) {
     if(detail){
       if(detail.length > 1) return detail.map(d => d + ", ")
       return detail
-    } else {
-      return "Unknown"
     }
   }
 
@@ -25,7 +23,7 @@ export default function BookDetails({ book, pickThumbnail, setShowDetails }) {
           <div className="book_author"><b>By:</b> {createDetail(authors)}</div>
           <div className="book_creationDate"> <b>Published Date:</b> {publishedDate}</div>
           <div className="book_lang"><b>Language:</b> {language}</div>
-          <div className="book_categories"> <b>Categories:</b> {createDetail(categories)}</div>
+          {categories && <div className="book_categories"> <b>Categories:</b> {createDetail(categories)}</div>}
         </div>
       </div>
       <div className="book_resume">
