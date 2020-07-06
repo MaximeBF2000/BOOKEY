@@ -8,7 +8,8 @@ import { GOOGLE_BOOK_API_URI } from "../config.json"
 const initialState = {
   data: [],
   query: "",
-  isLoading: false
+  isLoading: false,
+  showDetails: false
 }
 
 export const GeneralContext = createContext(initialState)

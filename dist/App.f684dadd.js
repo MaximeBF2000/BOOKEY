@@ -30947,7 +30947,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 var initialState = {
   data: [],
   query: "",
-  isLoading: false
+  isLoading: false,
+  showDetails: false
 };
 var GeneralContext = (0, _react.createContext)(initialState);
 exports.GeneralContext = GeneralContext;
@@ -47825,12 +47826,13 @@ exports.default = BookDetails;
 
 var _react = _interopRequireDefault(require("react"));
 
+var _default_book_img = _interopRequireDefault(require("../../assets/default_book_img.jpg"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function BookDetails(_ref) {
   var book = _ref.book,
-      pickThumbnail = _ref.pickThumbnail,
-      setShowDetails = _ref.setShowDetails;
+      toggleDetails = _ref.toggleDetails;
   var volumeInfo = book.volumeInfo;
   var authors = volumeInfo.authors,
       title = volumeInfo.title,
@@ -47857,17 +47859,13 @@ function BookDetails(_ref) {
     className: "book_details"
   }, /*#__PURE__*/_react.default.createElement("button", {
     className: "goBackBtn",
-    onClick: function onClick() {
-      return setShowDetails(function (sd) {
-        return !sd;
-      });
-    }
+    onClick: toggleDetails
   }, "Go back"), /*#__PURE__*/_react.default.createElement("div", {
     className: "book_card"
   }, /*#__PURE__*/_react.default.createElement("div", {
     className: "book_image"
   }, /*#__PURE__*/_react.default.createElement("img", {
-    src: pickThumbnail(),
+    src: thumbnail || smallThumbnail || _default_book_img.default,
     alt: "book image"
   })), /*#__PURE__*/_react.default.createElement("div", {
     className: "book_card_info"
@@ -47887,7 +47885,7 @@ function BookDetails(_ref) {
     className: "book_resume_content"
   }, description)));
 }
-},{"react":"node_modules/react/index.js"}],"src/modules/ui/Book.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","../../assets/default_book_img.jpg":"src/assets/default_book_img.jpg"}],"src/modules/ui/Book.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -47936,22 +47934,25 @@ function Book(_ref) {
       showDetails = _useState2[0],
       setShowDetails = _useState2[1];
 
+  var toggleDetails = function toggleDetails() {
+    return setShowDetails(function (ps) {
+      return !ps;
+    });
+  };
+
   var shortenDesc = function shortenDesc(str) {
     return str.slice(0, 120) + "...";
   };
 
-  var pickThumbnail = function pickThumbnail() {
-    if (thumbnail) return thumbnail;
-    if (smallThumbnail) return smallThumbnail;
-    return _default_book_img.default;
-  };
-
-  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", {
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, showDetails && /*#__PURE__*/_react.default.createElement(_BookDetails.default, {
+    book: book,
+    toggleDetails: toggleDetails
+  }), /*#__PURE__*/_react.default.createElement("div", {
     className: "book_element"
   }, /*#__PURE__*/_react.default.createElement("div", {
     className: "book_coverImg"
   }, /*#__PURE__*/_react.default.createElement("img", {
-    src: pickThumbnail(),
+    src: thumbnail || smallThumbnail || _default_book_img.default,
     alt: "book image"
   })), /*#__PURE__*/_react.default.createElement("div", {
     className: "book_info"
@@ -47963,18 +47964,10 @@ function Book(_ref) {
     className: "book_row"
   }, /*#__PURE__*/_react.default.createElement("button", {
     className: "book_goToBtn",
-    onClick: function onClick() {
-      return setShowDetails(function (sd) {
-        return !sd;
-      });
-    }
+    onClick: toggleDetails
   }, "See more"), /*#__PURE__*/_react.default.createElement("p", {
     className: "book_author"
-  }, "By: ", authors ? authors[0] : "Unknown"))), showDetails && /*#__PURE__*/_react.default.createElement(_BookDetails.default, {
-    book: book,
-    pickThumbnail: pickThumbnail,
-    setShowDetails: setShowDetails
-  }));
+  }, "By: ", authors ? authors[0] : "Unknown"))));
 }
 },{"react":"node_modules/react/index.js","../../assets/default_book_img.jpg":"src/assets/default_book_img.jpg","./BookDetails":"src/modules/ui/BookDetails.js"}],"src/modules/ui/BooksGrid.js":[function(require,module,exports) {
 "use strict";
@@ -48000,20 +47993,20 @@ function BooksGrid() {
   var _useContext = (0, _react.useContext)(_Context.GeneralContext),
       data = _useContext.data;
 
-  return /*#__PURE__*/_react.default.createElement("div", {
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement("div", {
     className: "books_grid"
   }, data.map(function (book) {
     var _book$volumeInfo = book.volumeInfo,
         publishedDate = _book$volumeInfo.publishedDate,
         authors = _book$volumeInfo.authors;
 
-    if (authors && parseFloat(publishedDate) > 1850) {
+    if (authors && parseFloat(publishedDate) > 1900) {
       return /*#__PURE__*/_react.default.createElement(_Book.default, {
         book: book,
         key: Math.random()
       });
     }
-  }));
+  })));
 }
 },{"react":"node_modules/react/index.js","../../context/Context":"src/context/Context.js","./Book":"src/modules/ui/Book.js"}],"src/App.js":[function(require,module,exports) {
 "use strict";
@@ -48093,7 +48086,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51656" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53092" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

@@ -9,20 +9,16 @@ export default function Book({ book }) {
   const { smallThumbnail, thumbnail } = imageLinks || ""
 
   const [showDetails, setShowDetails] = useState(false)
+  const toggleDetails = () => setShowDetails(ps => !ps)
 
   const shortenDesc = str => str.slice(0, 120) + "..."
 
-  const pickThumbnail = () => {
-    if(thumbnail) return thumbnail
-    if(smallThumbnail) return smallThumbnail
-    return default_thumbnail
-  }
-
   return (
     <>
+      {showDetails && <BookDetails book={book} toggleDetails={toggleDetails} />}
       <div className="book_element">
         <div className="book_coverImg">
-          <img src={pickThumbnail()} alt="book image"/>
+          <img src={thumbnail || smallThumbnail || default_thumbnail} alt="book image"/>
         </div>
         <div className="book_info">
           <h3 className="book_title">{title}</h3>
@@ -31,11 +27,10 @@ export default function Book({ book }) {
           </p>        
         </div>
           <div className="book_row">
-            <button className="book_goToBtn" onClick={() => setShowDetails(sd => !sd)}>See more</button>
+            <button className="book_goToBtn" onClick={toggleDetails}>See more</button>
             <p className="book_author">By: {authors ? authors[0] : "Unknown"}</p>
           </div>
       </div>
-      {showDetails && <BookDetails book={book} pickThumbnail={pickThumbnail} setShowDetails={setShowDetails} />}
     </>
   )
 }

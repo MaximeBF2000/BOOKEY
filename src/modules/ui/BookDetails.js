@@ -1,6 +1,7 @@
 import React from 'react'
+import default_thumbnail from "../../assets/default_book_img.jpg"
 
-export default function BookDetails({ book, pickThumbnail, setShowDetails }) {
+export default function BookDetails({ book, toggleDetails }) {
   const { volumeInfo } = book
   const { authors, title, description, imageLinks, publishedDate, categories, language } = volumeInfo
   const { smallThumbnail, thumbnail } = imageLinks || ""
@@ -14,10 +15,10 @@ export default function BookDetails({ book, pickThumbnail, setShowDetails }) {
 
   return (
     <div className="book_details">
-      <button className="goBackBtn" onClick={() => setShowDetails(sd => !sd)}>Go back</button>
+      <button className="goBackBtn" onClick={toggleDetails}>Go back</button>
       <div className="book_card">
         <div className="book_image">
-          <img src={pickThumbnail()} alt="book image" />
+          <img src={thumbnail || smallThumbnail || default_thumbnail} alt="book image" />
         </div>
         <div className="book_card_info">
           <div className="book_author"><b>By:</b> {createDetail(authors)}</div>

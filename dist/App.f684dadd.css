@@ -134,6 +134,12 @@ header .search_container .search_icon {
   text-align: right;
 }
 
+@media screen and (max-width: 550px) {
+  .books_grid {
+    grid-template-columns: 1fr;
+    padding: 2rem 2rem;
+  }
+}
 .book_details {
   position: fixed;
   top: 0;
@@ -142,6 +148,7 @@ header .search_container .search_icon {
   min-height: 100vh;
   background-color: #fefefe;
   z-index: 10;
+  pointer-events: all;
   display: grid;
   grid-template-columns: 2fr 5fr;
   gap: 2rem;
@@ -189,6 +196,12 @@ header .search_container .search_icon {
 .book_details .book_resume .book_resume_content {
   font-size: 0.8rem;
   line-height: 1.5;
+}
+
+@media screen and (max-width: 550px) {
+  .book_details {
+    grid-template-columns: 1fr;
+  }
 }
 
 /*# sourceMappingURL=/App.f684dadd.css.map */

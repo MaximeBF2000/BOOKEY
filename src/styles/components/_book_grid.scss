@@ -64,3 +64,11 @@
     }
   }
 }
+
+
+@media screen and (max-width: $bp-mobile){
+  .books_grid{
+    grid-template-columns: 1fr;
+    padding: 2rem 2rem;
+  }
+}

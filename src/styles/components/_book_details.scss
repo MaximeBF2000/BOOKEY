@@ -6,6 +6,7 @@
   min-height: 100vh;
   background-color: $white;
   z-index: 10;
+  pointer-events: all;
   display: grid;
   grid-template-columns: 2fr 5fr;
   gap: 2rem;
@@ -59,5 +60,12 @@
       font-size: .8rem;
       line-height: 1.5;
     }
+  }
+}
+
+
+@media screen and (max-width: $bp-mobile){
+  .book_details{
+    grid-template-columns: 1fr;
   }
 }
