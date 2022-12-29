@@ -1,3 +1,4 @@
 src/config.json
 dist/
 .cache
+node_modules/
